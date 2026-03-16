@@ -53,7 +53,29 @@ int arrMin(T arr[],int n)
     return m;
 }
 
+//class template arguement deduction
+template <typename T> 
+class DemoCls
+{
+    public:
+    T x; T y;
+    DemoCls(T valX, T valY):x(valX), y(valY){}
+    void getVal()
+    {
+        std::cout<<"x value is : "<<x<<" y value is : "<<y<<std::endl;
+    }
+};
 
+//template metaprogramming
+template <int N> struct Factorial
+{
+    static const int value = N * Factorial<N-1>::value;
+};
+
+template <> struct Factorial<0>
+{
+    static const int value = 1;
+};
 
 int main()
 {
@@ -79,6 +101,15 @@ int main()
 
     //Function template arguement deduction 
     std::cout<<"myMax without using arg deduction : "<<myMax(2,5)<<std::endl;
+
+    //Class arg deductions
+    DemoCls d1(10,10);
+    d1.getVal();
+    DemoCls d2(3.2,4.5);
+    d2.getVal();
+
+    //template meta programming
+    std::cout<<"Factorial of a number : "<<Factorial<5>::value;
 
 
     return 0;
