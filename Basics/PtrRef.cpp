@@ -20,4 +20,19 @@ int main()
     {
         std::cout<<*(myArr+i)<<std::endl;
     }
+
+    int x1 =10;
+    int *p1 = &x1;
+    int **r1 = &p1;//pointer to pointer
+    cout << "x1 value: " << x1 << ", address: " << &x1 << endl;
+
+    cout << "p1 value (address of x1): " << p1 
+         << ", *p1 (value of x1): " << *p1
+         << ", address of p1: " << &p1 << endl;
+
+    cout << "r1 value (address of p1): " << r1 
+         << ", *r1 (value of p1): " << *r1 
+         << ", **r1 (value of x1): " << **r1
+         << ", address of r1: " << &r1 << endl;
+
 }
