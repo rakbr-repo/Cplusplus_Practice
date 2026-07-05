@@ -8,7 +8,7 @@ class Singleton
     Singleton(Singleton& obj)=delete;
     Singleton& operator=(Singleton& obj)=delete;
     public:
-    static Singleton& getInstance()
+    static Singleton& getInstance()//singleton meyers
     {
         static Singleton instance;
         return instance;

@@ -4,62 +4,60 @@ using namespace std;
 
 class String
 {
-    private:
-    char* data;
-
     public:
+    char* data;
     //constructor
-    String(const char* str="")
+    String(const char* str = "")
     {
         data = new char[strlen(str)+1];
         strcpy(data,str);
-        cout<<"Constructor"<<endl;
     }
-    //Destructor
+    //destructor
     ~String()
     {
         delete[] data;
-        cout<<"Destructor called"<<std::endl;
     }
     //copy constructor
-    String(const String& obj)
+    String(const String& str)
     {
-        data = new char[strlen(obj.data)+1];
-        strcpy(data,obj.data);
-        cout<<"Copy const called"<<endl;
+        data = new char[strlen(str.data)+1];
+        strcpy(data,str.data);
     }
-    //Copy Assignment operator
-    String& operator=(String& obj)
+    //copy assignement
+    String& operator=(String& str)
     {
-        if(this!=&obj)
+        if(this != &str)
+        {   
+            //delete whatever was there previously, create new char* data from what we passed as paaremeter
+            delete[] data; 
+            data = new char[strlen(str.data)+1];
+            strcpy(data,str.data);
+        }
+        return *this;
+    } 
+
+    //move constructor
+    String(String&& str)
+    {
+        data = str.data;
+        str.data = nullptr;
+    }
+
+    //move assignment
+    String& operator=(String&& str)
+    {
+        if(this!=&str)
         {
             delete[] data;
-            data = new char[strlen(obj.data)+1];
-            strcpy(data,obj.data);
-            cout<<"Copy assignment constructor"<<std::endl;
+            data = str.data;
+            str.data = nullptr;
         }
         return *this;
     }
-    //Move constructor
-    String(String&& obj)
-    {
-        data = obj.data;
-        obj.data = nullptr;
-        cout<<"Move constructor"<<std::endl;
-    }
-    //Move assignment
-    String& operator=(String&& obj)
-    {
-        if(this!=&obj)
-        {
-            delete[] data;
-            data = obj.data;
-            obj.data = nullptr;
-            cout<<"move assignment"<<std::endl;
-        }
-        return *this;
-    }
+
 };
+
+
 
 int main()
 {
