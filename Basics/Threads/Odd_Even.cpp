@@ -47,10 +47,35 @@ void odd()
     }
 }
 
+//method2
+void evenThread()
+{
+    for(int i=0;i<51;i++)
+    {
+        std::unique_lock<std::mutex> lck(mtx);
+        cv.wait(lck,[]{return number%2==0;});
+        cout<<number<<endl;
+        number++;
+        cv.notify_all();
+    }
+}
+
+void oddThread()
+{
+    for(int i=0;i<50;i++)
+    {
+        std::unique_lock<std::mutex> lck(mtx);
+        cv.wait(lck,[]{return number%2!=0;});
+        cout<<number<<endl;
+        number++;
+        cv.notify_all();
+    }
+}
+
 int main()
 {
-    thread t1(even);
-    thread t2(odd);
+    thread t1(evenThread);
+    thread t2(oddThread);
 
     t1.join();
     t2.join();

@@ -1,74 +1,54 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
-class Shape
+class Vehicle
 {
     public:
-    virtual void draw() = 0;
-    virtual ~Shape(){}
+    virtual void start()=0;
+    virtual ~Vehicle(){}
 };
 
-class Circle : public Shape
+class Car : public Vehicle
 {
     public:
-    void draw() override
+    void start() override
     {
-        std::cout<<"Circle drawn"<<std::endl;
+        cout<<"Car starts"<<endl;
     }
 };
 
-class Rectangle : public Shape
+class Bike : public Vehicle
 {
     public:
-    void draw() override
+    void start() override
     {
-        std::cout<<"Rectangle drawn"<<std::endl;
+        cout<<"Bike starts"<<endl;
     }
 };
 
-class ShapeFactory
+class VehicleFactory
 {
     public:
-    virtual Shape* getShapeFactory() = 0;
-    virtual ~ShapeFactory(){}
-};
-
-class CircleFactory : public ShapeFactory
-{
-    public:
-    Shape* getShapeFactory() override
+    static Vehicle* createVehicles(string nameOfVehicle)
     {
-        return new Circle();
+        if(nameOfVehicle=="Car")
+        {
+            return new Car();
+        }
+        else if(nameOfVehicle=="Bike")
+        {
+            return new Bike();
+        }
+        else
+        {
+            return nullptr;
+        }
     }
 };
-
-class RectangleFactory : public ShapeFactory
-{
-    public:
-    Shape* getShapeFactory() override
-    {
-        return new Rectangle();
-    }
-};
-
-ShapeFactory* getFactory(char ch)
-{
-    if(ch == 'r'){return new RectangleFactory();}
-    else{return new CircleFactory();}
-}
 
 int main()
 {
-    char ch;
-    std::cout<<"Rectangle or Circle : (r/s) : ";
-    std::cin>>ch;
-    ShapeFactory* shapeFactory = getFactory(ch);
-    if(shapeFactory!=nullptr)
-    {
-        Shape* deriveShape = shapeFactory->getShapeFactory();
-        deriveShape->draw();
-        delete deriveShape;
-        delete shapeFactory;
-    }
+    Vehicle* v1 = VehicleFactory::createVehicles("Car");
+    v1->start();
     return 0;
 }

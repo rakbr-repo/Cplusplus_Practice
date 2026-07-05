@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
 
+//Prototype interface
 class Shape
 {
     public:
@@ -9,6 +10,7 @@ class Shape
     virtual ~Shape(){}
 };
 
+//Concrete Prototype
 class Circle : public Shape
 {
     private:

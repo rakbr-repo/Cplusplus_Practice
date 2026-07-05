@@ -1,0 +1,78 @@
+@startuml
+
+enum VehicleType
+{
+    BIKE,
+    TRUCK,
+    CAR
+}
+
+class Vehicle
+{
+    -vehicleNum:int
+    -vehType:VehicleType
+    +getVehicleNum():int
+    +getVehicleType():VehicleType
+}
+
+class Car
+class Bike
+class Truck
+
+Vehicle <|-- Car
+Vehicle <|-- Bike
+Vehicle <|-- Truck
+
+class ParkingSpot
+{
+    -spotId:int
+    -supportedVehType:VehicleType
+    -occupied:bool
+    +getSpotId():int
+    +getOccupiedType():bool
+    +getVehicleType():VehicleType
+    +parkVehicle():void
+    +removeVehicle():void
+    +isAvailable():bool
+}
+
+class ParkingTicket
+{
+    -ticketId:int
+    -vehicle:shared_ptr<Vehicle>
+    -spot:ParkingSpot*
+    -entryTime:time_point
+    +getTicketId():int
+    +getSpotId():int
+    +getParkedTime():time_point
+}
+
+class FeeCalculator
+{
+    +calculateFees(type,duration):double
+}
+
+class ParkingLot
+{
+    -spots:vector<shared_ptr<ParkingSpot>>
+    -activeTickets:unordered_map<int,unique_ptr<ParkingTicket>>
+    -nextTicketId:int
+    +parkVehicle(vehicle):*ParkingTicket
+    +removeVehicle():void
+    +displayAvailableSpots():void
+}
+
+ParkingTicket --> Vehicle: shares ownership
+ParkingTicket --> ParkingSpot : non owning reference
+
+ParkingLot ..> FeeCalculator : uses
+
+ParkingLot *-- ParkingSpot:owns
+ParkingLot *-- ParkingTicket:owns
+
+
+
+
+
+@enduml
+

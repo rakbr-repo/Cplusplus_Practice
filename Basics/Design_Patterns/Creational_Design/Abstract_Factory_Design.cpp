@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
 
+//Abstract Factory Interface
 class Pizza
 {
     public:
@@ -9,6 +10,7 @@ class Pizza
     virtual ~Pizza(){}
 };
 
+//Concrete Factories
 class NewYorkCheesePizza : public Pizza
 {
     public:
@@ -61,7 +63,7 @@ class ChicagoVegPizza : public Pizza
     }
 };
 
-
+//Abstract Product Interfacae
 class PizzaFactory
 {
     public:
@@ -69,6 +71,8 @@ class PizzaFactory
     virtual Pizza* createVegPizza() = 0;
     virtual ~PizzaFactory(){}
 };
+
+//Concrete Products
 
 class NewYorkPizzaFactory : public PizzaFactory
 {

@@ -2,6 +2,7 @@
 #include <string>
 using namespace std;
 
+//Product class
 class Computer
 {
     private:
@@ -18,6 +19,7 @@ class Computer
     }
 };
 
+//Builder Interface
 class ComputerBuilder
 {
     public:
@@ -26,6 +28,7 @@ class ComputerBuilder
     virtual Computer getComputer() = 0;
 };
 
+//Concrete Builder
 class DesktopComputerBuilder : public ComputerBuilder
 {
     public:
@@ -45,6 +48,7 @@ class DesktopComputerBuilder : public ComputerBuilder
     Computer computer_;
 };
 
+//Director
 class ComputerAssembler 
 {
     public:
