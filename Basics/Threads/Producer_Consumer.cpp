@@ -48,9 +48,10 @@ void producer()
 
 void consumer()
 {
+    std::unique_lock<std::mutex> lck(mtx,std::defer_lock);
     while(true)
     {
-        std::unique_lock<std::mutex> lck(mtx);
+        lck.lock();
         cv.wait(lck,[]{return !q.empty();});
         cout<<"consumer got : "<<q.front()<<endl;
         q.pop();

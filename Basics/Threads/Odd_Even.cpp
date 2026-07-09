@@ -48,14 +48,15 @@ void odd()
 }
 
 //method2
+int counter = 0;
 void evenThread()
 {
     for(int i=0;i<51;i++)
     {
         std::unique_lock<std::mutex> lck(mtx);
-        cv.wait(lck,[]{return number%2==0;});
-        cout<<number<<endl;
-        number++;
+        cv.wait(lck,[]{return counter%2==0;});
+        std::cout<<counter<<endl;
+        counter++;
         cv.notify_all();
     }
 }
@@ -65,12 +66,13 @@ void oddThread()
     for(int i=0;i<50;i++)
     {
         std::unique_lock<std::mutex> lck(mtx);
-        cv.wait(lck,[]{return number%2!=0;});
-        cout<<number<<endl;
-        number++;
+        cv.wait(lck,[]{return counter%2!=0;});
+        std::cout<<counter<<endl;
+        counter++;
         cv.notify_all();
     }
 }
+
 
 int main()
 {
